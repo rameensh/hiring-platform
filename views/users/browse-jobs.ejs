@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<title>Browse Jobs | Job Finder</title>
+	<link rel="icon" type="image/svg" href="/img/favicon.svg">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/colors/green.css" id="colors">
+
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<header>
+			<div class="container">
+				<div class="sixteen columns">
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="/"><img src="/img/logo.png" alt="Job Finder" /></a></h1>
+					</div>
+
+					<!-- Menu -->
+					<nav id="navigation" class="menu">
+						<ul id="responsive">
+
+							<li><a href="/">Home</a></li>
+
+							<li><a href="#" id="current">Browse Categories</a>
+								<ul>
+									<li><a href="/job/browse/Consultants">Accountants & Consultants</a></li>
+									<li><a href="/job/browse/Automotive">Automotive</a></li>
+									<li><a href="/job/browse/Developers">Developers</a></li>
+									<li><a href="/job/browse/Designers">Designers & Creatives</a></li>
+									<li><a href="/job/browse/Healthcare">Healthcare</a></li>
+									<li><a href="/job/browse/Teaching">Teaching</a></li>
+									<li><a href="/job/browse/Logistics">Logistics</a></li>
+									<li><a href="/job/browse/Customer Service Agents">Customer Service Agents</a></li>
+									<li><a href="/job/browse/Sales Experts">Sales & Marketing Experts</a></li>
+									<li><a href="/job/browse/Social Cause">Social Cause</a></li>
+									<li><a href="/job/browse/Business Development">Business Development</a></li>
+									<li><a href="/job/browse/Food Service">Food Service</a></li>
+									<li><a href="/job/browse/Writers">Writers</a></li>
+									<li><a href="/job/browse/Layman Hiring">Layman Hiring</a></li>
+								</ul>
+							</li>
+
+							<li><a href="/job/applied">My Applications</a></li>
+
+							<li><a href="/my-profile">My Profile</a></li>
+
+						</ul>
+
+						<% if(typeof(email) == 'undefined'){ %>
+							<ul class="float-right">
+								<li><a href="/register"><i class="fa fa-user"></i> Register</a></li>
+								<li><a href="/login"><i class="fa fa-lock"></i> Log In</a></li>
+							</ul>
+							<% } else { %>
+								<ul class="float-right">
+									<li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+								</ul>
+								<% } %>
+
+					</nav>
+
+					<!-- Navigation -->
+					<div id="mobile-navigation">
+						<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<div class="clearfix"></div>
+
+		<div id="titlebar">
+			<div class="container">
+				<div class="ten columns">
+					<span>We found <%= jobsData.length %> jobs matching:</span>
+					<h2>
+						<%= category %>
+					</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<!-- Recent Jobs -->
+			<div class="eleven columns">
+				<div class="padding-right">
+
+					<div class="list-search">
+						<button><i class="fa fa-search"></i></button>
+						<input id="searchJob" type="text" placeholder="job title, keywords or location" value="" />
+						<div class="clearfix"></div>
+					</div>
+
+					<ul id="jobs" class="job-list full">
+						<% if(jobsData.length!=0) { %>
+							<% for (var i=0; i < jobsData.length && i < 5; i++){ %>
+								<li id="jobTitle">
+									<a href="/job/view/<%= jobsData[i].id %>">
+										<div class="job-list-content">
+											<h4>
+												<%= jobsData[i].job_title %>
+													<% if(jobsData[i].job_type=='Full-Time' ){ %>
+														<span class="full-time">Full-Time</span>
+														<% } %>
+															<% if(jobsData[i].job_type=='Part-Time' ){ %>
+																<span class="part-time">Part-Time</span>
+																<% } %>
+																	<% if(jobsData[i].job_type=='Internship' ){ %>
+																		<span class="internship">Internship</span>
+																		<% } %>
+																			<% if(jobsData[i].job_type=='Freelance' ){
+																				%>
+																				<span class="freelance">Freelance</span>
+																				<% } %>
+																					<% if(jobsData[i].job_type=='Fresher Job'
+																						){ %>
+																						<span class="fresher">Fresher
+																							Job</span>
+																						<% } %>
+											</h4>
+
+											<div class="job-icons">
+												<span><i class="fa fa-briefcase"></i>
+													<%= jobsData[i].job_category %>
+												</span>
+												<span><i class="fa fa-map-marker"></i>
+													<%= jobsData[i].job_location %>
+												</span>
+												<span><i class="fa fa-money"></i>
+													₹<%= jobsData[i].pay_1 %> - ₹<%= jobsData[i].pay_2 %>
+												</span>
+											</div>
+										</div>
+									</a>
+									<div class="clearfix"></div>
+								</li>
+								<% }} else { %>
+									<li style="text-align: center;">
+										<h4>No matching jobs found!</h4>
+									</li>
+									<% } %>
+					</ul>
+					<div class="clearfix"></div>
+
+				</div>
+			</div>
+
+			<form action="/job/filter" method="post">
+				<input type="hidden" name="category" value="<%= category %>" />
+				<div class="five columns">
+					<div class="widget">
+						<h4>Location</h4>
+
+						<select id="job_location" name="job_location" class="chosen-select-no-single">
+							<option selected="selected" value="recent">Choose Location</option>
+							<option value="Mumbai">Mumbai</option>
+							<option value="Punjab">Punjab</option>
+							<option value="Chennai">Chennai</option>
+							<option value="Bangalore">Bangalore</option>
+							<option value="Delhi">Delhi</option>
+							<option value="Hyderabad">Hyderabad</option>
+							<option value="Pune">Pune</option>
+							<option value="WFH">Work from Home</option>
+						</select>
+					</div>
+
+					<!-- Job Type -->
+					<div class="widget">
+						<h4>Job Type</h4>
+
+						<select id="job_type" name="job_type" class="chosen-select-no-single">
+							<option value="">Select Job Type</option>
+							<option value="Full-Time">Full-Time</option>
+							<option value="Part-Time">Part-Time</option>
+							<option value="Internship">Internship</option>
+							<option value="Freelance">Freelance</option>
+							<option value="Fresher Job">Fresher Job</option>
+						</select>
+
+					</div>
+
+					<!-- Rate/Hr -->
+					<div class="widget">
+						<h4>Pay Scale</h4>
+
+						<div class="price-range-block">
+							<div id="slider-range" class="price-filter-range" name="rangeInput"></div>
+							
+							<div style="margin-bottom:10px">
+							  <input type="number" min=0 max="9999999" placeholder="From" id="min_pay" name="min_pay" class="price-range-field" />
+							  <input type="number" min=0 max="9999999" id="max_pay" name="max_pay" placeholder="To" class="price-range-field" />
+							</div>
+							
+						  </div>
+					</div>
+
+					<button type="submit" class="button">Filter</button>
+			</form>
+		</div>
+
+	</div>
+
+	<div class="margin-top-25"></div>
+
+	<!-- Back To Top Button -->
+	<div id="backtotop"><a href="#"></a></div>
+
+	</div>
+	<!-- Wrapper / End -->
+
+	<script src="/scripts/jquery-2.1.3.min.js"></script>
+	<script src="/scripts/custom.js"></script>
+	<script src="/scripts/jquery.superfish.js"></script>
+	<script src="/scripts/jquery.themepunch.tools.min.js"></script>
+	<script src="/scripts/jquery.themepunch.revolution.min.js"></script>
+	<script src="/scripts/jquery.themepunch.showbizpro.min.js"></script>
+	<script src="/scripts/jquery.flexslider-min.js"></script>
+	<script src="/scripts/chosen.jquery.min.js"></script>
+	<script src="/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="/scripts/waypoints.min.js"></script>
+	<script src="/scripts/jquery.counterup.min.js"></script>
+	<script src="/scripts/jquery.jpanelmenu.js"></script>
+	<script src="/scripts/stacktable.js"></script>
+
+	<script>
+		$("#searchJob").on('keyup', function () {
+			var value = $(this).val().toLowerCase();
+			$("#jobs li").each(function () {
+				if ($(this).text().toLowerCase().search(value) > -1) {
+					$(this).show();
+					$(this).prev('.jobTitle').last().show();
+				} else {
+					$(this).hide();
+				}
+			});
+		})
+
+		'<% if (typeof(job_location) != "undefined" && job_location != ""){ %>'
+			document.getElementById('job_location').value = '<%= job_location %>'
+		'<% } %>'
+		'<% if (typeof(job_type) != "undefined" && job_type != ""){ %>'
+			document.getElementById('job_type').value = '<%= job_type %>'
+		'<% } %>'
+		'<% if (typeof(min_pay) != "undefined" && min_pay != ""){ %>'
+			document.getElementById('min_pay').value = '<%= min_pay %>'
+		'<% } %>'
+		'<% if (typeof(max_pay) != "undefined" && max_pay != ""){ %>'
+			document.getElementById('max_pay').value = '<%= max_pay %>'
+		'<% } %>'
+	</script>
+
+</body>
+
+</html>

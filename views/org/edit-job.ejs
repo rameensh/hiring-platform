@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Edit Job | Organization</title>
+	<link rel="icon" type="image/svg" href="/img/favicon.svg">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/colors/green.css" id="colors">
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<header>
+			<div class="container">
+				<div class="sixteen columns">
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="/"><img src="/img/logo.png" /></a></h1>
+					</div>
+
+					<nav id="navigation" class="menu">
+						<ul id="responsive">
+							<li><a id="current" href="/organization/jobs/add-job">Add Job</a></li>
+							<li><a href="/organization/jobs/manage-jobs">Manage Jobs</a></li>
+						</ul>
+
+						<ul class="responsive float-right">
+							<li><a href="/organization/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+						</ul>
+
+					</nav>
+
+					<div id="mobile-navigation">
+						<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<div class="clearfix"></div>
+
+		<div id="titlebar">
+			<div class="container">
+
+				<div class="sixteen columns">
+					<h2><i class="fa fa-pencil"></i> Edit Job</h2>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="container">
+
+			<div class="sixteen columns">
+				<div class="submit-page">
+
+					<div class="form">
+						<h5>Job Title</h5>
+						<input class="search-field" id="job_title" name="job_title" type="text"
+							placeholder="Enter Job Title" value="<%= jobData.job_title %>" required />
+					</div>
+
+					<div class="form">
+						<h5>Job Location</h5>
+						<select id="job_location" name="job_location" class="chosen-select-no-single" required>
+							<option value="Mumbai">Mumbai</option>
+							<option value="Chennai">Chennai</option>
+							<option value="Bangalore">Bangalore</option>
+							<option value="Delhi">Delhi</option>
+							<option value="Hyderabad">Hyderabad</option>
+							<option value="Pune">Pune</option>
+							<option value="Punjab">Punjab</option>
+							<option value="Work from Home">Work from Home</option>
+						</select>
+					</div>
+
+					<div class="form">
+						<h5>Job Type</h5>
+						<select id="job_type" name="job_type" class="chosen-select-no-single" required>
+							<option value="Full-Time">Full-Time</option>
+							<option value="Part-Time">Part-Time</option>
+							<option value="Internship">Internship</option>
+							<option value="Freelance">Freelance</option>
+							<option value="Fresher Job">Fresher Job</option>
+						</select>
+					</div>
+
+					<div class="form">
+						<div class="select">
+							<h5>Job Category</h5>
+							<select class="chosen-select" id="job_category" name="job_category" required>
+								<option value="Consultants">Accountants & Consultants</option>
+								<option value="Automotive">Automotive</option>
+								<option value="Developers">Developers</option>
+								<option value="Designers">Designers & Creatives</option>
+								<option value="Healthcare">Healthcare</option>
+								<option value="Teaching">Teaching</option>
+								<option value="Logistics">Logistics</option>
+								<option value="Customer Service Agents">Customer Service Agents</option>
+								<option value="Sales Experts">Sales & Marketing Experts</option>
+								<option value="Social Cause">Social Cause</option>
+								<option value="Business Development">Business Development</option>
+								<option value="Food Service">Food Service</option>
+								<option value="Writers">Writers</option>
+							</select>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<div class="form">
+						<h5>Job Description</h5>
+						<textarea maxlength="5000" class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" name="job_desc"
+							spellcheck="true" required></textarea>
+					</div>
+
+					<!-- Skiils -->
+					<div class="form">
+						<h5>Required Skills</h5>
+						<input maxlength="300" value="<%= jobData.req_skills %>" class="search-field" id="req_skills" name="req_skills" type="text" placeholder="e.g. PHP, Social Media, Management" required />
+						<p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
+					</div>
+
+					<div class="form">
+						<h5>Job Pay / Salary</h5>
+						<div class="row">
+							<div class="six columns">
+								<input type="number" value="<%= jobData.pay_1 %>" placeholder="Enter Pay Range" id="pay_1" name="pay_1" required>
+							</div>
+							<div class="six columns">
+								<input type="number" value="<%= jobData.pay_2 %>" placeholder="Enter Pay Range" id="pay_2" name="pay_2" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form">
+						<h5>Apply By</h5>
+						<input type="text" maxlength="10" value="<%= jobData.closing_date %>" id="closing_date" name="closing_date" placeholder="Eg. 01-03-2023" required>
+						<p class="note">Deadline for new applicants.</p>
+					</div>
+
+					<button type="button" onclick="editJob()" class="button big margin-top-5">Edit Job <i
+							class="fa fa-arrow-circle-right"></i></a>
+				</div>
+				<div class="margin-top-60"></div>
+			</div>
+
+		</div>
+
+		<!-- Back To Top Button -->
+		<div id="backtotop"><a href="#"></a></div>
+
+	</div>
+
+	<script src="/scripts/jquery-2.1.3.min.js"></script>
+	<script src="/scripts/custom.js"></script>
+	<script src="/scripts/jquery.superfish.js"></script>
+	<script src="/scripts/jquery.themepunch.tools.min.js"></script>
+	<script src="/scripts/jquery.themepunch.revolution.min.js"></script>
+	<script src="/scripts/jquery.themepunch.showbizpro.min.js"></script>
+	<script src="/scripts/jquery.flexslider-min.js"></script>
+	<script src="/scripts/chosen.jquery.min.js"></script>
+	<script src="/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="/scripts/waypoints.min.js"></script>
+	<script src="/scripts/jquery.counterup.min.js"></script>
+	<script src="/scripts/jquery.jpanelmenu.js"></script>
+	<script src="/scripts/stacktable.js"></script>
+
+
+	<!-- WYSIWYG Editor -->
+	<script type="text/javascript" src="/scripts/jquery.sceditor.bbcode.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.sceditor.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+		var fbeschreibung;
+		$(function () {
+			fbeschreibung = $("textarea").sceditor({
+				plugins: "bbcode",
+				style: "css/style.less",
+				width: "100%",
+				toolbar: "bold,italic,underline,strike,subscript,superscript|left,center,right,justify|size,color,removeformat|bulletlist,orderedlist,horizontalrule,emoticon",
+				locale: "de",
+				resizeEnabled: false,
+			}).sceditor('instance');
+
+			var desc = `<%- jobData.job_desc %>`
+			document.getElementById('summary').innerHTML = desc;
+			$('textarea').sceditor('instance').wysiwygEditorInsertHtml(desc);
+		});
+
+		var today = new Date();
+        var dd = String(today.getDate() + 20).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = dd + '-' + mm + '-' + yyyy;
+		document.getElementById('closing_date').value = today;
+
+		document.getElementById('job_type').value = '<%= jobData.job_type %>'
+		document.getElementById('job_location').value = '<%= jobData.job_location %>'
+		document.getElementById('job_category').value = '<%= jobData.job_category %>'
+
+		function editJob() {
+			var job_title = document.getElementById('job_title').value
+			var job_location = document.getElementById('job_location').value
+			var job_type = document.getElementById('job_type').value
+			var job_category = document.getElementById('job_category').value
+			var job_desc = fbeschreibung.getBody().html();
+			var req_skills = document.getElementById('req_skills').value;
+			var pay_1 = document.getElementById('pay_1').value
+			var pay_2 = document.getElementById('pay_2').value
+			var closing_date = document.getElementById('closing_date').value
+
+			if (job_title != "" && job_location != "" && job_type != "" && job_category != "" && job_desc != "" && req_skills != "" && pay_1 != "" && pay_2 != "" && closing_date != "") {
+				var xhr = new XMLHttpRequest();
+
+				const params = {
+					jobID: '<%= jobData.id %>',
+					job_title: job_title,
+					job_location: job_location,
+					job_type: job_type,
+					job_category: job_category,
+					job_desc: job_desc,
+					req_skills: req_skills,
+					pay_1: pay_1,
+					pay_2: pay_2,
+					closing_date: closing_date,
+				}
+
+				xhr.open('POST', '/organization/jobs/edit-job');
+				xhr.setRequestHeader('Content-type', 'application/json')
+				xhr.onload = function () {
+					if (this.responseText == "success") {
+						swal('Success', 'Job Edited successfully!', 'success').then((value) => {
+							window.location.href = '/organization/jobs/manage-jobs'
+						})
+					} else if (this.responseText == "Not Login") {
+						window.location.href = '/organization/login';
+					} else {
+						swal("Something Went Wrong", this.responseText, 'error');
+					}
+				};
+				xhr.send(JSON.stringify(params));
+			} else {
+				swal('Warning', "Please, Enter value in all the fields!", 'warning')
+			}
+		}
+	</script>
+
+</body>
+
+</html>

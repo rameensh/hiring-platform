@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Job Finder</title>
+	<link rel="icon" type="image/svg" href="/img/favicon.svg">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/colors/green.css" id="colors">
+
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<header>
+			<div class="container">
+				<div class="sixteen columns">
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="/"><img src="/img/logo.png" alt="Job Finder" /></a></h1>
+					</div>
+
+					<!-- Menu -->
+					<nav id="navigation" class="menu">
+						<ul id="responsive">
+
+							<li><a href="/">Home</a></li>
+
+							<li><a href="#" id="current">Browse Categories</a>
+								<ul>
+									<li><a href="/job/browse/Consultants">Accountants & Consultants</a></li>
+									<li><a href="/job/browse/Automotive">Automotive</a></li>
+									<li><a href="/job/browse/Developers">Developers</a></li>
+									<li><a href="/job/browse/Designers">Designers & Creatives</a></li>
+									<li><a href="/job/browse/Healthcare">Healthcare</a></li>
+									<li><a href="/job/browse/Teaching">Teaching</a></li>
+									<li><a href="/job/browse/Logistics">Logistics</a></li>
+									<li><a href="/job/browse/Customer Service Agents">Customer Service Agents</a></li>
+									<li><a href="/job/browse/Sales Experts">Sales & Marketing Experts</a></li>
+									<li><a href="/job/browse/Social Cause">Social Cause</a></li>
+									<li><a href="/job/browse/Business Development">Business Development</a></li>
+									<li><a href="/job/browse/Food Service">Food Service</a></li>
+									<li><a href="/job/browse/Writers">Writers</a></li>
+									<li><a href="/job/browse/Layman Hiring">Layman Hiring</a></li>
+								</ul>
+							</li>
+
+							<li><a href="/job/applied">My Applications</a></li>
+
+							<li><a href="/my-profile">My Profile</a></li>
+						</ul>
+
+						<% if(typeof(email) == 'undefined'){ %>
+							<ul class="float-right">
+								<li><a href="/register"><i class="fa fa-user"></i> Register</a></li>
+								<li><a href="/login"><i class="fa fa-lock"></i> Log In</a></li>
+							</ul>
+							<% } else { %>
+								<ul class="float-right">
+									<li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+								</ul>
+								<% } %>
+
+					</nav>
+
+					<!-- Navigation -->
+					<div id="mobile-navigation">
+						<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+		<div class="clearfix"></div>
+
+		<div id="titlebar">
+			<div class="container">
+				<div class="ten columns">
+					<span><a href="/job/browse/<%= jobData[0].job_category %>">
+							<%= jobData[0].job_category %>
+						</a></span>
+					<h2>
+						<%= jobData[0].job_title %>
+							<% if(jobData[0].job_type=='Full-Time' ){ %>
+								<span class="full-time">Full-Time</span></h4>
+								<% } %>
+									<% if(jobData[0].job_type=='Part-Time' ){ %>
+										<span class="part-time">Part-Time</span></h4>
+										<% } %>
+											<% if(jobData[0].job_type=='Internship' ){ %>
+												<span class="internship">Internship</span></h4>
+												<% } %>
+													<% if(jobData[0].job_type=='Freelance' ){ %>
+														<span class="freelance">Freelance</span></h4>
+														<% } %>
+															<% if(jobData[0].job_type=='Fresher Job' ){ %>
+																<span class="fresher">Fresher Job</span></h4>
+																<% } %>
+					</h2>
+				</div>
+
+				<% if(jobData[0].status=='Active' && already == false){ %>
+					<div class="six columns">
+						<a role="button" onclick="applyJob()" class="button dark"><i class="fa fa-star"></i> Apply for
+							this job</a>
+					</div>
+					<% } %>
+
+					<% if(jobData[0].status=='Active' && already == true){ %>
+						<div class="six columns">
+							<a role="button" href="/job/applied" class="button dark"><i class="fa fa-check"></i> Applied</a>
+						</div>
+						<% } %>
+
+			</div>
+		</div>
+
+		<div class="container">
+
+			<!-- Recent Jobs -->
+			<div class="eleven columns">
+				<div class="padding-right">
+					<!-- Company Info -->
+					<div class="company-info">
+						<img src="<%= companyData[0].org_logo %>" alt="">
+						<div class="content">
+							<span><i class="fa fa-briefcase"></i> Company</span>
+							<h4>
+								<%= companyData[0].org_name %>
+							</h4>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+
+
+					<h4>Job Description:</h4>
+
+					<p class="margin-reset">
+						<%- jobData[0].job_desc %>
+					</p>
+
+					<h4>Required Skills:</h4>
+
+					<p class="margin-reset">
+						<%- jobData[0].req_skills %>
+					</p>
+
+				</div>
+			</div>
+
+
+			<!-- Widgets -->
+			<div class="five columns">
+
+				<!-- Sort by -->
+				<div class="widget">
+					<h4>Overview</h4>
+
+					<div class="job-overview">
+						<ul>
+							<li>
+								<i class="fa fa-map-marker"></i>
+								<div>
+									<strong>Location:</strong>
+									<span>
+										<%= jobData[0].job_location %>
+									</span>
+								</div>
+							</li>
+							<li>
+								<i class="fa fa-clock-o"></i>
+								<div>
+									<strong>Apply by:</strong>
+									<span>
+										<%= jobData[0].closing_date %>
+									</span>
+								</div>
+							</li>
+							<li>
+								<i class="fa fa-money"></i>
+								<div>
+									<strong>Rate:</strong>
+									<span>₹<%= jobData[0].pay_1 %> - ₹<%= jobData[0].pay_2 %></span>
+								</div>
+							</li>
+							<li>
+								<i class="fa fa-user"></i>
+								<div>
+									<strong>Job Status:</strong>
+									<span>
+										<%= jobData[0].status %>
+									</span>
+								</div>
+							</li>
+						</ul>
+
+						<% if(jobData[0].status=='Active' && already == false){ %>
+							<a role="button" onclick="applyJob()" class="popup-with-zoom-anim button">Apply For This
+								Job</a>
+							<% } %>
+
+							<% if(jobData[0].status=='Active' && already == true){ %>
+								<a role="button" onclick="applyJob()" class="popup-with-zoom-anim button">Applied</a>
+								<% } %>
+
+					</div>
+
+				</div>
+
+			</div>
+			<!-- Widgets / End -->
+
+
+		</div>
+
+		<div class="margin-top-50"></div>
+
+		<!-- Back To Top Button -->
+		<div id="backtotop"><a href="#"></a></div>
+
+	</div>
+	<!-- Wrapper / End -->
+
+	<script src="/scripts/jquery-2.1.3.min.js"></script>
+	<script src="/scripts/custom.js"></script>
+	<script src="/scripts/jquery.superfish.js"></script>
+	<script src="/scripts/jquery.themepunch.tools.min.js"></script>
+	<script src="/scripts/jquery.themepunch.revolution.min.js"></script>
+	<script src="/scripts/jquery.themepunch.showbizpro.min.js"></script>
+	<script src="/scripts/jquery.flexslider-min.js"></script>
+	<script src="/scripts/chosen.jquery.min.js"></script>
+	<script src="/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="/scripts/waypoints.min.js"></script>
+	<script src="/scripts/jquery.counterup.min.js"></script>
+	<script src="/scripts/jquery.jpanelmenu.js"></script>
+	<script src="/scripts/stacktable.js"></script>
+
+	<script src="/scripts/sweetalert.min.js"></script>
+
+	<script>
+		function applyJob() {
+			var xhr = new XMLHttpRequest();
+
+			const params = {
+				jobID: '<%= jobData[0].id %>',
+				org_name: '<%= companyData[0].org_name %>',
+				job_title: '<%= jobData[0].job_title %>',
+			}
+
+			xhr.open('POST', '/job/apply');
+			xhr.setRequestHeader('Content-type', 'application/json')
+			xhr.onload = function () {
+				if (this.responseText == 'success') {
+					swal("Applied", "You have applied to this job successfully!", "success")
+						.then((value) => {
+							if (value) {
+								window.location.reload()
+							}
+						})
+				} else if (this.responseText == 'Not Login') {
+
+					swal({
+						title: "Warning!",
+						text: "In order to apply for this job, you need to login!",
+						icon: "warning",
+						buttons: true,
+					})
+						.then((willDelete) => {
+							if (willDelete) {
+								window.location.href = '/login'
+							} 
+						});
+				} else if (this.responseText == 'already') {
+					swal("Already Applied", "You have already applied to this job!", "warning")
+				} else {
+					swal("Something Went Wrong!", this.responseText, "error")
+				}
+				console.log(this.responseText);
+			};
+			xhr.send(JSON.stringify(params));
+		}
+	</script>
+
+</body>
+
+</html>

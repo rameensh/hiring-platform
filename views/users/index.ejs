@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Job Finder</title>
+	<link rel="icon" type="image/svg" href="/img/favicon.svg">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/colors/green.css" id="colors">
+
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<header>
+			<div class="container">
+				<div class="sixteen columns">
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="/"><img src="/img/logo.png" alt="Job Finder" /></a></h1>
+					</div>
+
+					<!-- Menu -->
+					<nav id="navigation" class="menu">
+						<ul id="responsive">
+
+							<li><a href="/" id="current">Home</a></li>
+
+							<li><a href="#">Browse Categories</a>
+								<ul>
+									<li><a href="/job/browse/Consultants">Accountants & Consultants</a></li>
+									<li><a href="/job/browse/Automotive">Automotive</a></li>
+									<li><a href="/job/browse/Developers">Developers</a></li>
+									<li><a href="/job/browse/Designers">Designers & Creatives</a></li>
+									<li><a href="/job/browse/Healthcare">Healthcare</a></li>
+									<li><a href="/job/browse/Teaching">Teaching</a></li>
+									<li><a href="/job/browse/Logistics">Logistics</a></li>
+									<li><a href="/job/browse/Customer Service Agents">Customer Service Agents</a></li>
+									<li><a href="/job/browse/Sales Experts">Sales & Marketing Experts</a></li>
+									<li><a href="/job/browse/Social Cause">Social Cause</a></li>
+									<li><a href="/job/browse/Business Development">Business Development</a></li>
+									<li><a href="/job/browse/Food Service">Food Service</a></li>
+									<li><a href="/job/browse/Writers">Writers</a></li>
+									<li><a href="/job/browse/Layman Hiring">Layman Hiring</a></li>
+								</ul>
+							</li>
+
+							<li><a href="#">For Employers</a>
+								<ul>
+									<li><a href="/organization/login">Login</a></li>
+									<li><a href="/organization/register">Register</a></li>
+								</ul>
+							</li>
+
+							<% if(typeof(email)!='undefined' ){ %>
+								<li><a href="/job/applied">My Applications</a></li>
+								<li><a href="/my-profile">My Profile</a></li>
+								<% } %>
+						</ul>
+
+						<% if(typeof(email)=='undefined' ){ %>
+							<ul class="float-right">
+								<li><a href="/register"><i class="fa fa-user"></i> Register</a></li>
+								<li><a href="/login"><i class="fa fa-lock"></i> Log In</a></li>
+							</ul>
+							<% } else { %>
+								<ul class="float-right">
+									<li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+								</ul>
+								<% } %>
+
+					</nav>
+
+					<!-- Navigation -->
+					<div id="mobile-navigation">
+						<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+		<div class="clearfix"></div>
+
+		<div id="banner" style="background: url(/img/banner-home-01.jpg)">
+			<div class="container">
+				<div class="sixteen columns">
+
+					<div class="search-container">
+
+						<!-- Form -->
+						<h2>Find a job</h2>
+						<form method="post" action="/search">
+							<input type="text" class="ico-01" name="title" placeholder="Enter job title" value="" />
+							<input type="text" class="ico-02" name="location" placeholder="city, province or region"
+								value="" />
+							<button type="submit"><i class="fa fa-search"></i></button>
+						</form>
+
+						<!-- Announce -->
+						<div class="announce">
+							We've over <strong>
+								<%= noofjobs %>
+							</strong> job offers for you!
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Categories -->
+		<div class="container">
+			<div class="sixteen columns">
+				<h3 class="margin-bottom-25">Popular Categories</h3>
+				<ul id="popular-categories">
+					<li><a href="/job/browse/Consultants"><i class="fa fa-line-chart"></i> Consultants</a></li>
+					<li><a href="/job/browse/Developers"><i class="fa fa-laptop"></i> Developers</a></li>
+					<li><a href="/job/browse/Teaching"><i class="fa fa-graduation-cap"></i> Teaching</a></li>
+					<li><a href="/job/browse/Business Development"><i class="fa fa-building-o"></i> Business
+							Development</a></li>
+					<li><a href="/job/browse/Automotive"><i class="fa fa-wrench"></i> Automotive</a></li>
+					<li><a href="/job/browse/Healthcare"><i class="fa fa-medkit"></i> Healthcare</a></li>
+					<li><a href="/job/browse/Food Service"><i class="fa fa-cutlery"></i> Food Service</a></li>
+					<li><a href="/job/browse/Logistics"><i class="fa fa-globe"></i> Logistics</a></li>
+				</ul>
+
+				<div class="clearfix"></div>
+				<div class="margin-top-50"></div>
+			</div>
+		</div>
+
+		<div class="container">
+
+			<!-- Recent Jobs -->
+			<div class="sixteen columns">
+				<div class="padding-right">
+					<h3 class="margin-bottom-25">
+						<%= typeof(email)=='undefined' ? 'Recent Jobs' : 'Recommended Jobs based on Skills' %>
+					</h3>
+					<ul class="job-list">
+						<% if (jobsData.length !=0){ %>
+							<% for (var i=0; i < jobsData.length && i < 10; i++){ %>
+								<li class="highlighted">
+									<a href="/job/view/<%= jobsData[i].id %>">
+										<div class="job-list-content">
+											<h4>
+												<%= jobsData[i].job_title %>
+													<% if(jobsData[i].job_type=='Full-Time' ){ %>
+														<span class="full-time">Full-Time</span>
+														<% } %>
+															<% if(jobsData[i].job_type=='Part-Time' ){ %>
+																<span class="part-time">Part-Time</span>
+																<% } %>
+																	<% if(jobsData[i].job_type=='Internship' ){ %>
+																		<span class="internship">Internship</span>
+																		<% } %>
+																			<% if(jobsData[i].job_type=='Freelance' ){
+																				%>
+																				<span class="freelance">Freelance</span>
+																				<% } %>
+																					<% if(jobsData[i].job_type=='Fresher Job'
+																						){ %>
+																						<span class="fresher">Fresher
+																							Job</span>
+																						<% } %>
+											</h4>
+											<div class="job-icons">
+												<span><i class="fa fa-briefcase"></i>
+													<%= jobsData[i].job_category %>
+												</span>
+												<span><i class="fa fa-map-marker"></i>
+													<%= jobsData[i].job_location %>
+												</span>
+												<span><i class="fa fa-money"></i>
+													₹<%= jobsData[i].pay_1 %> - ₹<%= jobsData[i].pay_2 %>
+												</span>
+											</div>
+										</div>
+									</a>
+									<div class="clearfix"></div>
+								</li>
+								<% } } else { %>
+									<li class="highlighted">
+										<div class="job-list-content">
+											<h4>
+												<a href="/my-profile">Add skills to view recommended jobs!</a>
+											</h4>
+										</div>
+										<div class="clearfix"></div>
+									</li>
+									<% } %>
+					</ul>
+
+					<div class="margin-bottom-55"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="sixteen columns">
+				<h3 class="margin-bottom-25">Jobs by Location</h3>
+				<ul id="popular-categories">
+					<li><a href="/job/location/Mumbai"> Mumbai</a></li>
+					<li><a href="/job/location/Chennai"> Chennai</a></li>
+					<li><a href="/job/location/Bangalore"> Bangalore</a></li>
+					<li><a href="/job/location/Delhi"> Delhi</a></li>
+					<li><a href="/job/location/Hyderabad"> Hyderabad</a></li>
+					<li><a href="/job/location/Pune"> Pune</a></li>
+					<li><a href="/job/location/Punjab"> Punjab</a></li>
+					<li><a href="/job/location/Work from Home"> Work from Home</a></li>
+				</ul>
+
+				<div class="clearfix"></div>
+				<div class="margin-top-50"></div>
+			</div>
+
+			<div class="sixteen columns">
+				<div class="padding-right">
+					<h3 class="margin-bottom-25">
+						Layman Hiring
+					</h3>
+					<ul class="job-list">
+						<% if (layData.length !=0){ %>
+							<% for (var i=0; i < layData.length && i < 10; i++){ %>
+								<li class="highlighted">
+									<a href="/job/view/<%= jobsData[i].id %>">
+										<div class="job-list-content">
+											<h4>
+												<%= layData[i].job_title %>
+													<% if(layData[i].job_type=='Full-Time' ){ %>
+														<span class="full-time">Full-Time</span>
+														<% } %>
+															<% if(layData[i].job_type=='Part-Time' ){ %>
+																<span class="part-time">Part-Time</span>
+																<% } %>
+																	<% if(layData[i].job_type=='Internship' ){ %>
+																		<span class="internship">Internship</span>
+																		<% } %>
+																			<% if(layData[i].job_type=='Freelance' ){
+																				%>
+																				<span class="freelance">Freelance</span>
+																				<% } %>
+																					<% if(layData[i].job_type=='Fresher Job'
+																						){ %>
+																						<span class="fresher">Fresher
+																							Job</span>
+																						<% } %>
+											</h4>
+											<div class="job-icons">
+												<span><i class="fa fa-briefcase"></i>
+													<%= layData[i].job_category %>
+												</span>
+												<span><i class="fa fa-map-marker"></i>
+													<%= layData[i].job_location %>
+												</span>
+												<span><i class="fa fa-money"></i>
+													₹<%= layData[i].pay_1 %> - ₹<%= layData[i].pay_2 %>
+												</span>
+											</div>
+										</div>
+									</a>
+									<div class="clearfix"></div>
+								</li>
+								<% } } else { %>
+									<li class="highlighted">
+										<div class="job-list-content">
+											<h4>
+												No jobs found!
+											</h4>
+										</div>
+										<div class="clearfix"></div>
+									</li>
+									<% } %>
+					</ul>
+
+					<div class="margin-bottom-55"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="margin-top-15"></div>
+
+		<!-- Back To Top Button -->
+		<div id="backtotop"><a href="#"></a></div>
+	</div>
+
+	<script src="/scripts/jquery-2.1.3.min.js"></script>
+	<script src="/scripts/custom.js"></script>
+	<script src="/scripts/jquery.superfish.js"></script>
+	<script src="/scripts/jquery.themepunch.tools.min.js"></script>
+	<script src="/scripts/jquery.themepunch.revolution.min.js"></script>
+	<script src="/scripts/jquery.themepunch.showbizpro.min.js"></script>
+	<script src="/scripts/jquery.flexslider-min.js"></script>
+	<script src="/scripts/chosen.jquery.min.js"></script>
+	<script src="/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="/scripts/waypoints.min.js"></script>
+	<script src="/scripts/jquery.counterup.min.js"></script>
+	<script src="/scripts/jquery.jpanelmenu.js"></script>
+	<script src="/scripts/stacktable.js"></script>
+
+</body>
+
+</html>

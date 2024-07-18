@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<title>Manage Jobs | Organization</title>
+	<link rel="icon" type="image/svg" href="/img/favicon.svg">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/colors/green.css" id="colors">
+
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<header>
+			<div class="container">
+				<div class="sixteen columns">
+
+					<!-- Logo -->
+					<div id="logo">
+						<h1><a href="/"><img src="/img/logo.png" /></a></h1>
+					</div>
+
+					<nav id="navigation" class="menu">
+						<ul id="responsive">
+							<li><a href="/organization/jobs/add-job">Add Job</a></li>
+							<li><a id="current" href="/organization/jobs/manage-jobs">Manage Jobs</a></li>
+						</ul>
+
+						<ul class="responsive float-right">
+							<li><a href="/organization/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+						</ul>
+
+					</nav>
+
+					<!-- Navigation -->
+					<div id="mobile-navigation">
+						<a href="#menu" class="menu-trigger"><i class="fa fa-reorder"></i> Menu</a>
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+		<div class="clearfix"></div>
+
+		<div id="titlebar">
+			<div class="container">
+				<div class="sixteen columns">
+					<h2><i class="fa fa-briefcase"></i> Manage Jobs</h2>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+
+			<div class="sixteen columns">
+
+				<p class="margin-top-15 margin-bottom-20">Your Job Listings are shown in the table below.</p>
+
+				<table class="manage-table responsive-table">
+
+					<tr>
+						<th><i class="fa fa-file-text"></i> Title</th>
+						<th><i class="fa fa-bars"></i> Type</th>
+						<th><i class="fa fa-calendar"></i> Posted</th>
+						<th><i class="fa fa-calendar"></i> Closing</th>
+						<th><i class="fa fa-user"></i> Applicants</th>
+						<th></th>
+					</tr>
+
+					<% if (jobsData.length !=0) { %>
+						<% jobsData.forEach(function(job){ %>
+							<tr>
+								<td class="title">
+									<%= job.job_title %>
+								</td>
+								<td>
+									<%= job.job_type %>
+								</td>
+								<td><%= job.job_posted %></td>
+								<td><%= job.closing_date %></td>
+								<td class="action">
+									<a href="/organization/jobs/manage-applications/<%= job.id %>"><i class="fa fa-external-link"></i> View</a>
+								</td>
+								<td class="action">
+									<a href="/organization/jobs/edit-job/<%= job.id %>" class="delete"><i class="fa fa-pencil"></i> Edit</a>
+									<a href="/organization/jobs/delete-job/<%= job.id %>" class="delete"><i class="fa fa-remove"></i> Delete</a>
+								</td>
+							</tr>
+						<% }) %>
+					<% } else { %>
+						<tr>
+							<td colspan="6" class="title">
+								You haven't posted any jobs yet, Click on <a href="/organization/jobs/add-job">Add Job</a> to add one!
+							</td>
+						</tr>
+					<% } %>
+				</table>
+			</div>
+		</div>
+
+		<div class="margin-top-60"></div>
+
+		<!-- Back To Top Button -->
+		<div id="backtotop"><a href="#"></a></div>
+
+	</div>
+
+	<script src="/scripts/jquery-2.1.3.min.js"></script>
+	<script src="/scripts/custom.js"></script>
+	<script src="/scripts/jquery.superfish.js"></script>
+	<script src="/scripts/jquery.themepunch.tools.min.js"></script>
+	<script src="/scripts/jquery.themepunch.revolution.min.js"></script>
+	<script src="/scripts/jquery.themepunch.showbizpro.min.js"></script>
+	<script src="/scripts/jquery.flexslider-min.js"></script>
+	<script src="/scripts/chosen.jquery.min.js"></script>
+	<script src="/scripts/jquery.magnific-popup.min.js"></script>
+	<script src="/scripts/waypoints.min.js"></script>
+	<script src="/scripts/jquery.counterup.min.js"></script>
+	<script src="/scripts/jquery.jpanelmenu.js"></script>
+	<script src="/scripts/stacktable.js"></script>
+
+</body>
+
+</html>
